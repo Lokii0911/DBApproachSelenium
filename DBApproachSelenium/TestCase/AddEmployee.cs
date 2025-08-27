@@ -46,8 +46,8 @@ namespace DBApproachSelenium.TestCase
         {
             SafeClick(Add);
             Sendvalues(FirstNameInput, firstName);
-            wait.Until(ExpectedConditions.ElementToBeClickable(MiddleNameInput)).SendKeys(middleName);
-            wait.Until(ExpectedConditions.ElementToBeClickable(LastNameInput)).SendKeys(lastName);
+            Sendvalues(MiddleNameInput, middleName);    
+            Sendvalues(LastNameInput, lastName);    
             driver.FindElement(Empid).Clear();
             Sendvalues(Empid, empId);
             return this;
@@ -55,9 +55,9 @@ namespace DBApproachSelenium.TestCase
         public AddEmployee logincredetials(string username, string emppass, string conpass)
         {
             SafeClick(CheckboxInput);
-            wait.Until(ExpectedConditions.ElementToBeClickable(UserName)).SendKeys(username);
-            wait.Until(ExpectedConditions.ElementToBeClickable(pass)).SendKeys(emppass);
-            wait.Until(ExpectedConditions.ElementToBeClickable(passfocus)).SendKeys(conpass);
+            Sendvalues(UserName, username);
+            Sendvalues(pass, emppass);  
+            Sendvalues(passfocus, conpass); 
             SafestClick(Save);
             return this;
 

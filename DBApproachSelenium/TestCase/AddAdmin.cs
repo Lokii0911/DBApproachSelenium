@@ -36,27 +36,27 @@ namespace DBApproachSelenium.TestCase
 
         public AddAdmin adminadd()
         {
-            wait.Until(ExpectedConditions.ElementToBeClickable(Admin)).Click();
-            wait.Until(ExpectedConditions.ElementToBeClickable(AddButton)).Click();
+           SafeClick(Admin);
+           SafeClick(AddButton);
             return this;
         }
         public AddAdmin detailsenroll(string empname)
         {
-            wait.Until(ExpectedConditions.ElementToBeClickable(UserRoleDropdown)).Click();
-            wait.Until(ExpectedConditions.ElementToBeClickable(AdminOption)).Click();
+            SafeClick(UserRoleDropdown);
+            SafeClick(AdminOption);
             wait.Until(ExpectedConditions.ElementIsVisible(EmployeeNameInput)).SendKeys(empname);
             wait.Until(ExpectedConditions.ElementIsVisible(By.XPath($"//div[@role='listbox']//span[normalize-space()='{empname}' and not(contains(@class,'hidden'))]"))).Click();
-            wait.Until(ExpectedConditions.ElementToBeClickable(Dropdown)).Click();
-            wait.Until(ExpectedConditions.ElementToBeClickable(EnabledOption)).Click();
+            SafeClick(Dropdown);
+            SafeClick(EnabledOption);
             return this;
         }
 
         public AddAdmin enterpass(string username, string pass, string confpass)
         {
-            wait.Until(ExpectedConditions.ElementIsVisible(UsernameInput)).SendKeys(username);
-            wait.Until(ExpectedConditions.ElementIsVisible(PasswordInput)).SendKeys(pass);
-            wait.Until(ExpectedConditions.ElementIsVisible(ConfirmPasswordInput)).SendKeys(confpass);
-            wait.Until(ExpectedConditions.ElementToBeClickable(SaveButton)).Click();
+            Sendvalues(UsernameInput, username);    
+            Sendvalues(PasswordInput, pass);    
+            Sendvalues(ConfirmPasswordInput, confpass); 
+            SafeClick(SaveButton);
             return this;
         }
 
