@@ -30,6 +30,36 @@ namespace DBApproachSelenium.DDT
                 yield return new object[] { row["TC_ID"].ToString(), row["Username"].ToString(), row["Password"].ToString(), row["First_name"].ToString() , row["Middle_name"].ToString(), row["Last_name"].ToString(), row["Employee_id"].ToString(), row["u_name"].ToString(), row["Acc_pass"].ToString(), row["Confirm_pass"].ToString(), row["Expected"].ToString() };
             }
         }
+
+        public static IEnumerable<Object[]> GetAdminData()
+        {
+            string query = "Select TC_ID,Login_id, Password,Employee_name,username,Employee_pass,Confirm_pass,Expected_result FROM AdminAddVerification;";
+            DataTable dt=DBHelper.ExecuteQuery(query);
+            foreach(DataRow row in dt.Rows)
+            {
+                yield return new object[] { row["TC_ID"].ToString(), row["Login_id"].ToString(), row["Password"].ToString(), row["Employee_name"].ToString(), row["username"].ToString(), row["Employee_pass"].ToString(), row["Confirm_pass"].ToString(), row["Expected_result"].ToString() };
+            }
+        }
+
+        public static IEnumerable<Object[]> DeleteEmployeeData()
+        {
+            string query = "Select Login_id, Password,Employee_name,Expected_result FROM AdminAddVerification;";
+            DataTable dt = DBHelper.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                yield return new object[] { row["Login_id"].ToString(), row["Password"].ToString(), row["Employee_name"].ToString(), row["Expected_result"].ToString() };
+            }
+        }
+
+        public static IEnumerable<Object[]> DeleteAdminData()
+        {
+            string query = "Select Login_id, Password,Employee_name,Expected_result FROM AdminAddVerification;";
+            DataTable dt = DBHelper.ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                yield return new object[] { row["Login_id"].ToString(), row["Password"].ToString(), row["Employee_name"].ToString(), row["Expected_result"].ToString() };
+            }
+        }
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using DBApproachSelenium.DDT;
+﻿using NUnit.Framework;
+using DBApproachSelenium.DDT;
 using DBApproachSelenium.Setup;
 using DBApproachSelenium.DBApproach.TestCase;
 using DBApproachSelenium.TestCase;
@@ -14,6 +15,8 @@ using System.Threading.Tasks;
 
 namespace DBApproachSelenium.Testcall
 {
+    [TestFixture]
+    [Parallelizable(ParallelScope.None)]
     public class Test:Base
     {
         [Test, TestCaseSource(typeof(Dbreader), nameof(Dbreader.GetLoginData))]
@@ -46,6 +49,44 @@ namespace DBApproachSelenium.Testcall
                 .AddButton(firstName, middleName, lastName, empId)
                 .logincredetials(username, emppass, conpass)
                 .VerifyEmployeeSave(expected);
+        }
+
+        [Test, TestCaseSource(typeof(Dbreader),nameof(Dbreader.GetAdminData))]
+        public void TC005_AdminAddVerification(string test_id, string login_id, string password, string empname, string username, string pass, string confpass, string expected)
+        {
+            AddAdmin adminadd = new AddAdmin(driver, wait);
+            Login log = new Login(driver, wait);
+            log
+                .DoLogin(login_id, password);
+            adminadd
+                    .adminadd()
+                    .detailsenroll(empname)
+                    .enterpass(username, pass, confpass)
+                    .VerifyAdminSave(expected);
+        }
+
+        [Test, TestCaseSource(typeof(Dbreader), nameof(Dbreader.DeleteEmployeeData))]
+        public void TC005_DeleteEmployeeVerificatin(string login_id, string password, string empname, string expected)
+        {
+            DeleteEmpverification deleteemp = new DeleteEmpverification(driver, wait);
+            Login log = new Login(driver, wait);
+            log
+                .DoLogin(login_id, password);
+            deleteemp
+                    .DeleteEmployee(empname)
+                    .Verifydelete(expected);
+        }
+
+        [Test, TestCaseSource(typeof(Dbreader), nameof(Dbreader.DeleteAdminData))]
+        public void TC005_DeleteAdminVerificatin(string login_id, string password, string empname, string expected)
+        {
+            DeleteAdminVerification deleteemp = new DeleteAdminVerification(driver, wait);
+            Login log = new Login(driver, wait);
+            log
+                .DoLogin(login_id, password);
+            deleteemp
+                    .DeleteAdmin(empname)
+                    .Verifydelete(expected);
         }
 
     }

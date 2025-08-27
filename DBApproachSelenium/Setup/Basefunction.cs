@@ -110,7 +110,7 @@ namespace DBApproachSelenium.Setup
 
                 if (expected.Equals("Pass", StringComparison.OrdinalIgnoreCase))
                 {
-                    Assert.That(success, Is.True, " Expected creation to succeed but no success toast appeared.");
+                    Assert.That(success, Is.True, " Creation Successful.");
                 }
                 else
                 {
@@ -120,12 +120,28 @@ namespace DBApproachSelenium.Setup
             catch (WebDriverTimeoutException)
             {
                 if (expected.Equals("Pass", StringComparison.OrdinalIgnoreCase))
-                    Assert.Fail(" Expected success but no toast appeared within timeout.");
+                    Assert.Fail("Expected success but no toast appeared within timeout.");
                 else
                     Assert.Pass("Expected failure, and no success toast appeared.");
             }
 
         }
+
+        public bool VerifyDelete(string expected,By locator)
+        {
+            bool isMessageVisible = IsElementVisible(locator);
+
+            if (expected == "pass")
+            {
+                Assert.That(isMessageVisible, Is.True, "Expected deletion to succeed but toast not visible.");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
     }
 }
